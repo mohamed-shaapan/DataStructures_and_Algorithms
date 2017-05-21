@@ -1,6 +1,7 @@
 package PerfectHashing;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 //LSP stands for Linear-Space Perfect HashMap
 public class LSPHashMap {
@@ -15,11 +16,19 @@ public class LSPHashMap {
 	//02_CONSTRUCTOR
 	//*************************************************
 	public LSPHashMap(Entry dataSet[]){
+		
+		// hash function parameters
 		m=dataSet.length;
+		p = generateNextPrime(2 * m);
+		
+		// initialize hash table
 		primaryTable=new QSPHashMap[m];
 		this.givenDataSet=dataSet;
+		
+		// construct hash table
 		obtainHashFunction();
 		storeEntries();
+
 	}
 	
 	
@@ -41,34 +50,45 @@ public class LSPHashMap {
 		int index=((a*key+b)%p)%m;
 		return index;
 	}
+	
+	private void generateHashFunction() {
+		// m = givenDataSet.length;
+		// p=generateNextPrime(m);
+		Random rand = new Random();
+		a = rand.nextInt(p)+1;
+		//a = 100*a*a-60*a+300;
+		
+		b = rand.nextInt(p)+1;
+		//b = 100*b*b-60*b+300;
+	}
 
 	//****************************
 	private void obtainHashFunction(){
 		//00_try different combinations of hash functions
-		for(int hashFunction=1; hashFunction<=100; hashFunction++){
+		boolean hashFunctionFound = false;
+		while (hashFunctionFound == false) {
 			//01_generate new hash function
-			a=1; b=2; p=23;
+			generateHashFunction();
 			//02_determine the # of collisions for this hash function
-			boolean isGoodFunction=true;
-			int maxAllowedCollisions=(m*m)/2;
-			Integer[] indexTable=new Integer[m];
+			int maxAllowedCollisions=2*m-1;
+			Integer[] testTable=new Integer[m];
 			for(Entry element:givenDataSet){
 				int index=runHashFunction(element.getKey());
-				if(indexTable[index]==null){
-					indexTable[index]=0;
+				if(testTable[index]==null){
+					testTable[index]=0;
 				}else {
-					indexTable[index]++;
-					if(indexTable[index]>maxAllowedCollisions){
-						isGoodFunction=false;
+					testTable[index]++;
+					if(testTable[index]>maxAllowedCollisions){
 						break;
 					}
 				}
 			}
 			//03_decide if hash function is good or not
-			if(isGoodFunction==true){
-				break;
+			if(maxAllowedCollisions<2*m){
+				hashFunctionFound=true;
 			}
 		}
+		//System.out.println("SUCCESS");
 	}
 	
 	//****************************
@@ -92,6 +112,28 @@ public class LSPHashMap {
 			primaryTable[i-1]=new QSPHashMap(cellArray);
 		}
 		
+	}
+	
+	
+	private int generateNextPrime(int start) {
+		int result = start + 1;
+
+		while (true) {
+			result += 1;
+			boolean primeFound = true;
+			for (int i = 2; i < result; i++) {
+				if (result % i == 0) {
+					primeFound = false;
+					break;
+				}
+			}
+			if (primeFound == true) {
+				break;
+			}
+		}
+
+		return result;
+
 	}
 	
 	

@@ -31,7 +31,7 @@ public class DynamicTester {
 		// int[] sample4={100, 30, 10, 111, 75};
 		double[] data = new double[1];
 		try {
-			data = FileHandler.openFile();
+			data = FileHandler.openFile("TestCase_Rep.txt");
 		} catch (FileNotFoundException e) {
 		}
 		System.out.println("Loaded!!!!!!!!");
