@@ -28,12 +28,15 @@ public class HashTester {
 	//************************************************************
 	private static void runQuadHashTest() throws IOException {
 
-		int[] data = FileHandler.readFile("test_cases\\test_zz.txt");
+		int[] data = FileHandler.readFile("test_cases\\test_02.txt");
 
 		Entry[] keyValuePair = generateKeyValuePair(data);
 		QSPHashMap hashTable = new QSPHashMap(keyValuePair);
 
-		//hashTable.get(15);
+		
+		String lookup=hashTable.get(22);
+		System.out.println(lookup);
+		
 	}
 
 	//************************************************************

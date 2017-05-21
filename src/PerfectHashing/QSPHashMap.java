@@ -18,6 +18,7 @@ public class QSPHashMap {
 		m = dataSet.length * dataSet.length;
 		p = generateNextPrime(2 * m);
 
+		//System.out.println(m);
 		// initialize hash table
 		dataTable = new Entry[m];
 		this.givenDataSet = dataSet;
@@ -32,6 +33,9 @@ public class QSPHashMap {
 	// *************************************************
 	public String get(int key) {
 		int index = runHashFunction(key);
+		if((index>=dataTable.length)||(index<0)){
+			return null;
+		}
 		Entry result = dataTable[index];
 		if (result == null) {
 			return null;
@@ -61,7 +65,7 @@ public class QSPHashMap {
 	
 	@SuppressWarnings("unused")
 	private void printHashFunction(){
-		System.out.println("/*****************");
+		System.out.println("/**************************");
 		System.out.println("m : "+m);
 		System.out.println("p : "+p);
 		System.out.println("a : "+a);
@@ -76,21 +80,28 @@ public class QSPHashMap {
 		while (hashFunctionFound == false) {
 			// 01_generate new hash function
 			generateHashFunction();
-			printHashFunction();
+			//printHashFunction();
 			// 02_determine the # of collisions for this hash function
 			int numOfCollisions = 0;
-			Integer[] testTable = new Integer[m];
+			Integer[][] testTable = new Integer[m][2];
+			//first column indicates number of collisions
+			//second column gives the value of the stored key
 			for (Entry element : givenDataSet) {
 				int index = runHashFunction(element.getKey());
 				//System.out.println(index);
-				if (testTable[index] == null) {
-					testTable[index] = 0;
+				if (testTable[index][0] == null) {
+					testTable[index][0] = 0;
+					testTable[index][1] = element.getKey();
 				} else {
-					testTable[index] += 1;
-					if(testTable[index]>numOfCollisions){
-						numOfCollisions =testTable[index];
+					if(testTable[index][1]==element.getKey()){
+						continue;
 					}
-					
+					numOfCollisions+=1;
+					break;
+					/*testTable[index][0]+=1;
+					if(testTable[index][0]>numOfCollisions){
+						numOfCollisions=testTable[index][0];
+					}*/
 				}
 			}
 			// 03_decide if hash function is good or not
@@ -99,7 +110,7 @@ public class QSPHashMap {
 			}
 		}
 		
-		printHashFunction();
+		//printHashFunction();
 		//System.out.println("SUCCESS");
 		
 
