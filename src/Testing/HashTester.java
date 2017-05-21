@@ -18,8 +18,8 @@ public class HashTester {
 			System.out.println(num);
 		}*/
 		
-		runQuadHashTest();
-		//runLinearHashTest();
+		//runQuadHashTest();
+		runLinearHashTest();
 
 	}
 
@@ -43,12 +43,13 @@ public class HashTester {
 	//************************************************************
 	private static void runLinearHashTest() throws IOException {
 
-		int[] data = FileHandler.readFile("test_cases\\test_00.txt");
+		int[] data = FileHandler.readFile("test_cases\\test_03.txt");
 
 		Entry[] keyValuePair = generateKeyValuePair(data);
 		LSPHashMap hashTable = new LSPHashMap(keyValuePair);
 
-		hashTable.get(15);
+		String lookup=hashTable.get(-15);
+		System.out.println(lookup);
 		
 	}
 

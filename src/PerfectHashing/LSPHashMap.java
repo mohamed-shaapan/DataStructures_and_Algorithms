@@ -36,6 +36,9 @@ public class LSPHashMap {
 	//*************************************************
 	public String get(int key) {
 		int index=runHashFunction(key);
+		if((index>=primaryTable.length)||(index<0)){
+			return null;
+		}
 		String result=primaryTable[index].get(key);
 		if(result==null){
 			return null;
@@ -71,6 +74,7 @@ public class LSPHashMap {
 			generateHashFunction();
 			//02_determine the # of collisions for this hash function
 			int maxAllowedCollisions=2*m-1;
+			int maxDetectedCollisions=0;
 			Integer[] testTable=new Integer[m];
 			for(Entry element:givenDataSet){
 				int index=runHashFunction(element.getKey());
@@ -78,13 +82,16 @@ public class LSPHashMap {
 					testTable[index]=0;
 				}else {
 					testTable[index]++;
-					if(testTable[index]>maxAllowedCollisions){
+					if(testTable[index]>maxDetectedCollisions){
+						maxDetectedCollisions=testTable[index];
+					}
+					if(maxDetectedCollisions>maxAllowedCollisions){
 						break;
 					}
 				}
 			}
 			//03_decide if hash function is good or not
-			if(maxAllowedCollisions<2*m){
+			if(maxDetectedCollisions<maxAllowedCollisions){
 				hashFunctionFound=true;
 			}
 		}
