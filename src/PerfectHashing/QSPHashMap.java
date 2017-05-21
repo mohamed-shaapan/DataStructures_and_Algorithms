@@ -88,6 +88,10 @@ public class QSPHashMap {
 			//second column gives the value of the stored key
 			for (Entry element : givenDataSet) {
 				int index = runHashFunction(element.getKey());
+				if(index<0){
+					numOfCollisions=5;
+					break;
+				}
 				//System.out.println(index);
 				if (testTable[index][0] == null) {
 					testTable[index][0] = 0;

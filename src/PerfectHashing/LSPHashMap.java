@@ -20,8 +20,8 @@ public class LSPHashMap {
 		// hash function parameters
 		m=dataSet.length;
 		p = generateNextPrime(2 * m);
-		System.out.println("prime : "+p);
-		System.out.println("error : "+(176047*p));
+		//System.out.println("prime : "+p);
+		//System.out.println("error : "+(176047*p));
 		
 		// initialize hash table
 		primaryTable=new QSPHashMap[m];
@@ -42,7 +42,7 @@ public class LSPHashMap {
 		//System.out.println("index : "+index);
 		//System.out.println("size : "+primaryTable.length);
 		if((index>=primaryTable.length)||(index<0)||(primaryTable[index]==null)){
-			System.out.println("success");
+			//System.out.println("success");
 			return null;
 		}
 		String result=primaryTable[index].get(key);
@@ -85,7 +85,11 @@ public class LSPHashMap {
 			Integer[] testTable=new Integer[m];
 			for(Entry element:givenDataSet){
 				int index=runHashFunction(element.getKey());
-				System.out.println(index);
+				if(index<0){
+					maxDetectedCollisions=maxAllowedCollisions+1;
+					break;
+				}
+				//System.out.println(index);
 				if(testTable[index]==null){
 					testTable[index]=0;
 				}else {

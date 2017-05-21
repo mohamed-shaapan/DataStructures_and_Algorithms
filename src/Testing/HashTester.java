@@ -1,7 +1,6 @@
 package Testing;
 
 import java.io.IOException;
-import java.util.Random;
 
 import Commons.FileHandler;
 import PerfectHashing.Entry;
@@ -28,7 +27,7 @@ public class HashTester {
 	//************************************************************
 	private static void runQuadHashTest() throws IOException {
 
-		int[] data = FileHandler.readFile("test_cases\\test_02.txt");
+		int[] data = FileHandler.readFile("test_cases\\test_04.txt");
 
 		Entry[] keyValuePair = generateKeyValuePair(data);
 		QSPHashMap hashTable = new QSPHashMap(keyValuePair);
@@ -48,7 +47,7 @@ public class HashTester {
 		Entry[] keyValuePair = generateKeyValuePair(data);
 		LSPHashMap hashTable = new LSPHashMap(keyValuePair);
 
-		String lookup=hashTable.get(22);
+		String lookup=hashTable.get(-22);
 		System.out.println(lookup);
 		
 	}
