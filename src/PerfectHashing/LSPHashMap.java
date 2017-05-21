@@ -20,12 +20,15 @@ public class LSPHashMap {
 		// hash function parameters
 		m=dataSet.length;
 		p = generateNextPrime(2 * m);
+		System.out.println("prime : "+p);
+		System.out.println("error : "+(176047*p));
 		
 		// initialize hash table
 		primaryTable=new QSPHashMap[m];
-		this.givenDataSet=dataSet;
+		givenDataSet=dataSet;
 		
 		// construct hash table
+		
 		obtainHashFunction();
 		storeEntries();
 
@@ -36,7 +39,10 @@ public class LSPHashMap {
 	//*************************************************
 	public String get(int key) {
 		int index=runHashFunction(key);
-		if((index>=primaryTable.length)||(index<0)){
+		//System.out.println("index : "+index);
+		//System.out.println("size : "+primaryTable.length);
+		if((index>=primaryTable.length)||(index<0)||(primaryTable[index]==null)){
+			System.out.println("success");
 			return null;
 		}
 		String result=primaryTable[index].get(key);
@@ -52,6 +58,7 @@ public class LSPHashMap {
 	private int runHashFunction(int key){
 		int index=((a*key+b)%p)%m;
 		return index;
+		//return Math.abs(index);
 	}
 	
 	private void generateHashFunction() {
@@ -78,6 +85,7 @@ public class LSPHashMap {
 			Integer[] testTable=new Integer[m];
 			for(Entry element:givenDataSet){
 				int index=runHashFunction(element.getKey());
+				System.out.println(index);
 				if(testTable[index]==null){
 					testTable[index]=0;
 				}else {
@@ -95,7 +103,7 @@ public class LSPHashMap {
 				hashFunctionFound=true;
 			}
 		}
-		//System.out.println("SUCCESS");
+		System.out.println("SUCCESS");
 	}
 	
 	//****************************

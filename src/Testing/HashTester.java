@@ -48,7 +48,7 @@ public class HashTester {
 		Entry[] keyValuePair = generateKeyValuePair(data);
 		LSPHashMap hashTable = new LSPHashMap(keyValuePair);
 
-		String lookup=hashTable.get(-15);
+		String lookup=hashTable.get(22);
 		System.out.println(lookup);
 		
 	}
