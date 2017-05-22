@@ -16,38 +16,38 @@ public class HashTester {
 			int num= rand.nextInt(100)+1;
 			System.out.println(num);
 		}*/
-		
-		//runQuadHashTest();
-		runLinearHashTest();
+		String tesFileLocation="test_cases\\test_04.txt";
+		//runQuadHashTest(tesFileLocation);
+		runLinearHashTest(tesFileLocation);
 
 	}
 
 	
 	//************************************************************
 	//************************************************************
-	private static void runQuadHashTest() throws IOException {
+	private static void runQuadHashTest(String tesFileLocation) throws IOException {
 
-		int[] data = FileHandler.readFile("test_cases\\test_04.txt");
+		int[] data = FileHandler.readFile(tesFileLocation);
 
 		Entry[] keyValuePair = generateKeyValuePair(data);
 		QSPHashMap hashTable = new QSPHashMap(keyValuePair);
 
 		
-		String lookup=hashTable.get(22);
+		String lookup=hashTable.get(-22);
 		System.out.println(lookup);
 		
 	}
 
 	//************************************************************
 	//************************************************************
-	private static void runLinearHashTest() throws IOException {
+	private static void runLinearHashTest(String tesFileLocation) throws IOException {
 
-		int[] data = FileHandler.readFile("test_cases\\test_03.txt");
+		int[] data = FileHandler.readFile(tesFileLocation);
 
 		Entry[] keyValuePair = generateKeyValuePair(data);
 		LSPHashMap hashTable = new LSPHashMap(keyValuePair);
 
-		String lookup=hashTable.get(-22);
+		String lookup=hashTable.get(22);
 		System.out.println(lookup);
 		
 	}

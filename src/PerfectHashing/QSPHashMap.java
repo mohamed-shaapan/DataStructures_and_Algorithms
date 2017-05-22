@@ -80,7 +80,6 @@ public class QSPHashMap {
 		while (hashFunctionFound == false) {
 			// 01_generate new hash function
 			generateHashFunction();
-			//printHashFunction();
 			// 02_determine the # of collisions for this hash function
 			int numOfCollisions = 0;
 			Integer[][] testTable = new Integer[m][2];
@@ -92,7 +91,6 @@ public class QSPHashMap {
 					numOfCollisions=5;
 					break;
 				}
-				//System.out.println(index);
 				if (testTable[index][0] == null) {
 					testTable[index][0] = 0;
 					testTable[index][1] = element.getKey();
@@ -102,10 +100,6 @@ public class QSPHashMap {
 					}
 					numOfCollisions+=1;
 					break;
-					/*testTable[index][0]+=1;
-					if(testTable[index][0]>numOfCollisions){
-						numOfCollisions=testTable[index][0];
-					}*/
 				}
 			}
 			// 03_decide if hash function is good or not
@@ -113,11 +107,6 @@ public class QSPHashMap {
 				hashFunctionFound=true;
 			}
 		}
-		
-		//printHashFunction();
-		//System.out.println("SUCCESS");
-		
-
 	}
 
 	// ****************************
